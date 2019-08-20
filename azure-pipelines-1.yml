@@ -58,13 +58,14 @@ stages:
       runOnce:
         deploy:
           steps:
-          
           - task: KubernetesManifest@0
             displayName: Create secret for MongoDB
             inputs:
               action: createSecret
               secretName: mongodb
               secretType: generic
+              kubernetesServiceConnection: aksclstr01-dev
+              # kubernetesServiceConnection: captureorder
               namespace: $(k8sNamespace)
               secretArguments: --from-literal=mongoHost=$(mongoHost) --from-literal=mongoUser=$(mongoUser) --from-literal=mongoPassword=$(mongoPassword)
           
